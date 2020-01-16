@@ -10,5 +10,5 @@
 	}
 添加导入
 	dependencies {
-	        implementation 'com.github.kbmznfl:MyCommonLibrary:Tag'
+	        implementation 'com.github.kbmznfl:MyCommonLibrary:1.0.0'
 	}
