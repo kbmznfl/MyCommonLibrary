@@ -1,2 +1,14 @@
 这个git单纯就是为了方便我后续的工作开发而参考公司大佬的框架而搭建的一个简易框架，
 没有太多功能，仅仅只是简化了部分组件的初始化
+使用指南：
+添加引用:
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://www.jitpack.io' }
+		}
+	}
+添加导入
+	dependencies {
+	        implementation 'com.github.kbmznfl:MyCommonLibrary:Tag'
+	}
