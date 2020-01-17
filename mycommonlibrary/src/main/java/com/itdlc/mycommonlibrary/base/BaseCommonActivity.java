@@ -107,5 +107,84 @@ public abstract class BaseCommonActivity extends AppCompatActivity {
             //e.printStackTrace();
         }
     }
+    
+    public void activityCountdown(int mTime,TextView title) {           //倒计时（时间结束时返回结束当前页面）
+        final int[] time = { mTime };
+        Observable.interval(0, 1, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .take(mTime + 1)
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(this.<Long>bindUntilEvent(ActivityEvent.STOP))
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        time[0] -= 1;
+                        if (time[0] > 0) {
+                            title.setText(time[0] + "s");
+                        } else {
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void waitCountdown(int mTime,TextView title) {            //倒计时（时间结束时结束所有页面）
+        final int[] time = { mTime };
+        Observable.interval(0, 1, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .take(mTime + 1)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        Intent intent = new Intent(getApplicationContext(),SelectAccessActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .compose(this.<Long>bindUntilEvent(ActivityEvent.STOP))
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        time[0] -= 1;
+                        if (time[0] > 0) {
+                            title.setText(time[0] + "s");
+                        } else {
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
 }
