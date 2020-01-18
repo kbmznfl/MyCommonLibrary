@@ -108,7 +108,7 @@ public abstract class BaseCommonActivity extends AppCompatActivity {
         }
     }
     
-    public void activityCountdown(int mTime,TextView title) {           //倒计时（时间结束时返回结束当前页面）
+    /*public void activityCountdown(int mTime,TextView title) {           //倒计时（时间结束时返回结束当前页面）
         final int[] time = { mTime };
         Observable.interval(0, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
@@ -185,6 +185,6 @@ public abstract class BaseCommonActivity extends AppCompatActivity {
 
                     }
                 });
-    }
+    }*/
 
 }
